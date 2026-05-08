@@ -35,6 +35,7 @@
 *.i*86
 *.x86_64
 *.hex
+mbox-parser
 
 # Debug files
 *.dSYM/
@@ -53,3 +54,14 @@ dkms.conf
 
 # debug information files
 *.dwo
+
+# Data files
+*.mbox
+*.txt
+*.html
+*.css
+*.js
+*.json
+*.png
+*.jpg
+*.pdf
