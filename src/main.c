@@ -4,10 +4,13 @@
 
 #define VERSION "0.0.1"
 
-void read_mbox(const char *filename) {
+int read_mbox(const char *filename) {
   FILE *fp = fopen(filename, "r");
-  if (!fp)
-    return;
+
+  if (!fp) {
+    fprintf(stderr, "Error: Could not open mbox archive \"%s\"\n", filename);
+    return 1;
+  }
 
   char line[1024];
   int msg_count = 0;
@@ -30,6 +33,8 @@ void read_mbox(const char *filename) {
   printf("Total Messages Found: %d\n", msg_count);
 
   fclose(fp);
+
+  return 0;
 }
 
 int write_html(const char *file) {
@@ -78,17 +83,14 @@ int main(int argc, char *argv[]) {
     switch (opt) {
     case 'v':
       printf("mbox-parser version: %s\n", VERSION);
-      break;
-    case 't':
-      read_mbox("Test.mbox");
-      break;
-    case 'm':
-      rv = write_html(optarg);
-      break;
+      return rv;
     case 'h':
-      printf("Help\n");
-      fprintf(stderr, "Currently not implemented yet, sorry.\n");
-      break;
+      fprintf(stderr, "Help is currently not implemented yet, sorry.\n");
+      return rv;
+    case 't':
+      return read_mbox("Test.mbox");
+    case 'm':
+      return write_html(optarg);
     case '?':
       break;
     }
